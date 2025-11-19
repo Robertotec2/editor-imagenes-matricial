@@ -324,7 +324,21 @@ function ajustarBrillo(matriz, factor) {
   //   }
   // }
   
-  return []; // REEMPLAZAR
+  const resultado = copiarMatriz(matriz);
+
+  for (let i = 0; i < resultado.length; i++) {
+    for (let j = 0; j < resultado[i].length; j++) {
+
+      const px = resultado[i][j];
+
+      px.r = limitarValorColor(px.r * factor);
+      px.g = limitarValorColor(px.g * factor);
+      px.b = limitarValorColor(px.b * factor);
+
+    }
+  }
+
+  return resultado;
 }
 
 /**
