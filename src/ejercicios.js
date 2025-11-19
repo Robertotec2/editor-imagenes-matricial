@@ -519,7 +519,16 @@ function rotar90Grados(matriz) {
   // Opción 2: Construir directamente la matriz rotada
   //   nuevoPixel[j][alto - 1 - i] = pixelOriginal[i][j]
   
-  return []; // REEMPLAZAR
+  const alto = matriz.length;
+  const ancho = matriz[0].length;
+  const resultado = crearMatrizVacia(ancho, alto);
+  for (let i = 0; i < alto; i++) {
+    for (let j = 0; j < ancho; j++) {
+      resultado[j][alto - 1 - i] = { ...matriz[i][j] };
+    }
+  }
+  return resultado;
+  
 }
 
 // ============================================
