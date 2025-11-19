@@ -362,7 +362,22 @@ function ajustarBrillo(matriz, factor) {
 function invertirColores(matriz) {
   // TODO: Implementar inversión de colores
   
-  return []; // REEMPLAZAR
+  const resultado = matriz.map(fila =>
+    fila.map(px => ({ ...px }))
+  );
+
+  for (let i = 0; i < resultado.length; i++) {
+    for (let j = 0; j < resultado[i].length; j++) {
+      const px = resultado[i][j];
+
+      px.r = 255 - px.r;
+      px.g = 255 - px.g;
+      px.b = 255 - px.b;
+
+    }
+  }
+
+  return resultado;
 }
 
 /**
