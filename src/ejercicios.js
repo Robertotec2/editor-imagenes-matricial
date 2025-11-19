@@ -485,7 +485,12 @@ function voltearHorizontal(matriz) {
 function voltearVertical(matriz) {
   // TODO: Implementar volteo vertical
   
-  return []; // REEMPLAZAR
+  const resultado = matriz.map(fila =>
+    fila.map(px => ({ ...px }))
+  );
+  resultado.reverse();
+  return resultado;
+  
 }
 
 /**
