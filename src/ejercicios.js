@@ -258,7 +258,29 @@ function obtenerDimensionesImagen(rutaImagen) {
   // Pista: Puedes cargar la imagen y usar obtenerDimensiones()
   // o leer solo el header del PNG
   
-  return { ancho: 0, alto: 0, totalPixeles: 0 }; // REEMPLAZAR
+  const fs = require('fs');
+  
+  const buffer = Buffer.alloc(24);
+  const fd = fs.openSync(rutaImagen, 'r');
+
+  fs.readSync(fd, buffer, 0, 24, 0);
+  fs.closeSync(fd);
+
+  const firmaPNG = Buffer.from([0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]);
+  for (let i = 0; i < 8; i++) {
+    if (buffer[i] !== firmaPNG[i]) {
+      throw new Error("El archivo no es un PNG válido.");
+    }
+  }
+
+  const ancho = buffer.readUInt32BE(16);
+  const alto = buffer.readUInt32BE(20);
+
+  return {
+    ancho,
+    alto,
+    totalPixeles: ancho * alto
+  };
 }
 
 // ============================================
