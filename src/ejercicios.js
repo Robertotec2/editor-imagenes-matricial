@@ -87,9 +87,26 @@ function imagenAMatriz(rutaImagen) {
   
   // 6. Retornar la matriz
   // return matriz;
-  
-  return []; // REEMPLAZAR CON TU CÓDIGO
+  const buffer = fs.readFileSync(rutaImagen);
+  const png = PNG.sync.read(buffer);
+  const matriz = [];
+  for (let y = 0; y < png.height; y++) {
+    const fila = [];
+    for (let x = 0; x < png.width; x++) {
+      const idx = (png.width * y + x) << 2;
+      const pixel = {
+        r: png.data[idx],
+        g: png.data[idx + 1],
+        b: png.data[idx + 2],
+        a: png.data[idx + 3]
+      };
+      fila.push(pixel);
+    }
+    matriz.push(fila);
+  }
+  return matriz;
 }
+
 
 /**
  * Ejercicio 1.2: Convertir matriz de píxeles a imagen PNG (5 puntos)
