@@ -570,8 +570,39 @@ function mezclarImagenes(matriz1, matriz2, factor) {
   // g = g1 * (1 - factor) + g2 * factor
   // b = b1 * (1 - factor) + b2 * factor
   
-  return []; // REEMPLAZAR
-}
+  const filas1 = matriz1.length;
+  const columnas1 = matriz1[0].length;
+
+  const filas2 = matriz2.length;
+  const columnas2 = matriz2[0].length;
+
+  if (filas1 !== filas2 || columnas1 !== columnas2) {
+    throw new Error("Las imágenes deben tener el mismo tamaño");
+  }
+
+  
+  const resultado = [];
+
+  for (let i = 0; i < filas1; i++) {
+    resultado[i] = [];
+
+    for (let j = 0; j < columnas1; j++) {
+      const p1 = matriz1[i][j];
+      const p2 = matriz2[i][j];
+
+      const r = Math.round(p1.r * (1 - factor) + p2.r * factor);
+      const g = Math.round(p1.g * (1 - factor) + p2.g * factor);
+      const b = Math.round(p1.b * (1 - factor) + p2.b * factor);
+
+      
+      const a = p1.a;
+
+      resultado[i][j] = { r, g, b, a };
+    }
+  }
+
+  return resultado;
+}  
 
 /**
  * Ejercicio 4.2: Filtro Sepia (9 puntos)
